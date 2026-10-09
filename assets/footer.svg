@@ -1,0 +1,70 @@
+<svg width="900" height="150" viewBox="0 0 900 150"
+     xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+  <linearGradient id="line" x1="0" x2="1">
+    <stop offset="0" stop-color="#7aa2f7"/>
+    <stop offset=".5" stop-color="#bb9af7"/>
+    <stop offset="1" stop-color="#ff79c6"/>
+  </linearGradient>
+</defs>
+
+<style>
+  .mono {
+    font-family:"SFMono-Regular","Cascadia Code",
+                "Roboto Mono",Menlo,monospace;
+  }
+
+  .coin {
+    animation: coin 1.7s ease-in-out infinite;
+  }
+
+  @keyframes coin {
+    0%,100% {
+      opacity:.35;
+      letter-spacing:5px;
+    }
+    50% {
+      opacity:1;
+      letter-spacing:7px;
+    }
+  }
+
+  .ticker {
+    animation: ticker 12s linear infinite;
+  }
+
+  @keyframes ticker {
+    from { transform:translateX(900px); }
+    to { transform:translateX(-1000px); }
+  }
+</style>
+
+<rect x="10" y="10" width="880" height="130"
+      rx="12" fill="#11121c" stroke="#414868"/>
+
+<rect x="30" y="30" width="840" height="2"
+      fill="url(#line)"/>
+
+<text x="450" y="75"
+      text-anchor="middle"
+      class="mono coin"
+      font-size="17"
+      fill="#e0af68">
+  ▼ INSERT COIN TO CONTINUE ▼
+</text>
+
+<clipPath id="tickerClip">
+  <rect x="30" y="96" width="840" height="30"/>
+</clipPath>
+
+<g clip-path="url(#tickerClip)">
+  <text y="115"
+        class="mono ticker"
+        font-size="12"
+        fill="#565f89">
+    TYPESCRIPT  ◆  REACT  ◆  NODE  ◆  C++  ◆  PYTHON  ◆  AI  ◆  AUTOMATION  ◆  COFFEE  ◆  TERMINAL RICING  ◆  PROBABLY REFACTORING SOMETHING
+  </text>
+</g>
+
+</svg>
