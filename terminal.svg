@@ -1,324 +1,706 @@
-<svg
-  width="900"
-  height="610"
-  viewBox="0 0 900 610"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <style>
-    .terminal {
-      font-family: "SFMono-Regular", "SF Mono", "Cascadia Code",
-                   "Roboto Mono", "Liberation Mono", Menlo, monospace;
-      font-size: 16px;
+<svg width="900" height="650" viewBox="0 0 900 650"
+     xmlns="http://www.w3.org/2000/svg">
+
+<style>
+  .terminal {
+    font-family: "SFMono-Regular", "SF Mono", "Cascadia Code",
+                 "Roboto Mono", "Liberation Mono", Menlo, monospace;
+    font-size: 16px;
+  }
+
+  .title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    fill: #a9b1d6;
+  }
+
+  .prompt { fill: #7aa2f7; }
+  .path   { fill: #bb9af7; }
+  .cmd    { fill: #c0caf5; }
+  .text   { fill: #a9b1d6; }
+  .green  { fill: #9ece6a; }
+  .yellow { fill: #e0af68; }
+  .muted  { fill: #565f89; }
+
+  /*
+   * Entire session:
+   *
+   *  0–3s    whoami
+   *  3–7s    interests
+   *  7–13s   status
+   * 13–16s   uptime
+   * 16–20s   git status
+   * 20–22s   idle
+   * 22–23s   clear
+   *
+   * Total: 23s
+   */
+
+  .session {
+    animation: session 23s linear infinite;
+  }
+
+  @keyframes session {
+    0%, 95% {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .title {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 13px;
-      fill: #a9b1d6;
-    }
-
-    .prompt { fill: #7aa2f7; }
-    .path   { fill: #bb9af7; }
-    .cmd    { fill: #c0caf5; }
-    .text   { fill: #a9b1d6; }
-    .green  { fill: #9ece6a; }
-    .yellow { fill: #e0af68; }
-    .muted  { fill: #565f89; }
-
-    .line {
+    97% {
       opacity: 0;
-      animation: show 0.15s forwards;
+      transform: translateY(-4px);
     }
 
-    .cursor {
-      fill: #c0caf5;
-      animation: blink 1s step-end infinite;
+    99% {
+      opacity: 0;
+      transform: translateY(4px);
     }
 
-    @keyframes show {
-      to { opacity: 1; }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Generic reveal */
+
+  .reveal {
+    opacity: 0;
+    animation: reveal 23s linear infinite;
+  }
+
+  @keyframes reveal {
+    0%, 100% { opacity: 0; }
+  }
+
+  /*
+   * Typing uses textLength masks.
+   * Each command has its own clipping rectangle.
+   */
+
+  .cursor {
+    fill: #c0caf5;
+    animation: blink .9s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 45%   { opacity: 1; }
+    46%, 100% { opacity: 0; }
+  }
+
+
+  /* =========================
+     WHOAMI
+     ========================= */
+
+  .whoami-prompt {
+    animation: whoamiPrompt 23s linear infinite;
+  }
+
+  @keyframes whoamiPrompt {
+    0%, 1% { opacity: 0; }
+    1.1%, 95% { opacity: 1; }
+    97%, 100% { opacity: 0; }
+  }
+
+  .whoami-command {
+    clip-path: inset(0 100% 0 0);
+    animation: typeWhoami 23s steps(6, end) infinite;
+  }
+
+  @keyframes typeWhoami {
+    0%, 1.5% {
+      clip-path: inset(0 100% 0 0);
     }
 
-    @keyframes blink {
-      0%, 45%   { opacity: 1; }
-      46%, 100% { opacity: 0; }
+    5% {
+      clip-path: inset(0 0 0 0);
     }
 
-    .l1  { animation-delay: .4s; }
-    .l2  { animation-delay: 1.3s; }
-    .l3  { animation-delay: 1.6s; }
-    .l4  { animation-delay: 1.9s; }
-    .l5  { animation-delay: 2.2s; }
-
-    .l6  { animation-delay: 3.3s; }
-    .l7  { animation-delay: 3.7s; }
-    .l8  { animation-delay: 4.0s; }
-    .l9  { animation-delay: 4.3s; }
-    .l10 { animation-delay: 4.6s; }
-    .l11 { animation-delay: 4.9s; }
-    .l12 { animation-delay: 5.2s; }
-
-    .l13 { animation-delay: 6.3s; }
-    .l14 { animation-delay: 6.7s; }
-    .l15 { animation-delay: 7.0s; }
-    .l16 { animation-delay: 7.3s; }
-    .l17 { animation-delay: 7.6s; }
-    .l18 { animation-delay: 7.9s; }
-    .l19 { animation-delay: 8.2s; }
-
-    .l20 { animation-delay: 9.4s; }
-    .l21 { animation-delay: 9.8s; }
-    .l22 { animation-delay: 10.1s; }
-    .l23 { animation-delay: 10.4s; }
-
-    .l24 { animation-delay: 11.4s; }
-
-    .typing {
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
+    95% {
+      clip-path: inset(0 0 0 0);
     }
-  </style>
 
-  <!-- window shadow -->
-  <rect
-    x="15"
-    y="15"
-    width="870"
-    height="580"
-    rx="14"
-    fill="#000000"
-    opacity=".18"
-  />
+    97%, 100% {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
 
-  <!-- terminal -->
-  <rect
-    x="10"
-    y="10"
-    width="870"
-    height="580"
-    rx="14"
-    fill="#1a1b26"
-    stroke="#414868"
-  />
+  .whoami-output {
+    animation: whoamiOutput 23s linear infinite;
+  }
 
-  <!-- title bar -->
-  <path
-    d="M24 10 H866
-       A14 14 0 0 1 880 24
-       V54
-       H10
-       V24
-       A14 14 0 0 1 24 10Z"
-    fill="#16161e"
-  />
+  @keyframes whoamiOutput {
+    0%, 5.5% { opacity: 0; }
+    6%, 95% { opacity: 1; }
+    97%, 100% { opacity: 0; }
+  }
 
-  <line
-    x1="10"
-    y1="54"
-    x2="880"
-    y2="54"
-    stroke="#292e42"
-  />
 
-  <!-- macOS buttons -->
-  <circle cx="34" cy="32" r="6" fill="#f7768e"/>
-  <circle cx="54" cy="32" r="6" fill="#e0af68"/>
-  <circle cx="74" cy="32" r="6" fill="#9ece6a"/>
+  /* =========================
+     INTERESTS
+     ========================= */
 
-  <text
-    x="445"
-    y="37"
-    text-anchor="middle"
-    class="title"
-  >
-    chema@github — zsh
+  .interests-prompt {
+    animation: interestsPrompt 23s linear infinite;
+  }
+
+  @keyframes interestsPrompt {
+    0%, 16% { opacity: 0; }
+    16.5%, 95% { opacity: 1; }
+    97%, 100% { opacity: 0; }
+  }
+
+  .interests-command {
+    clip-path: inset(0 100% 0 0);
+    animation: typeInterests 23s steps(18, end) infinite;
+  }
+
+  @keyframes typeInterests {
+    0%, 17% {
+      clip-path: inset(0 100% 0 0);
+    }
+
+    23% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    95% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    97%, 100% {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  .interests-output {
+    animation: interestsOutput 23s linear infinite;
+  }
+
+  @keyframes interestsOutput {
+    0%, 23.5% { opacity: 0; }
+    24%, 95% { opacity: 1; }
+    97%, 100% { opacity: 0; }
+  }
+
+
+  /* =========================
+     CURRENT STATUS
+     ========================= */
+
+  .status-prompt {
+    animation: statusPrompt 23s linear infinite;
+  }
+
+  @keyframes statusPrompt {
+    0%, 31% { opacity: 0; }
+    31.5%, 95% { opacity: 1; }
+    97%, 100% { opacity: 0; }
+  }
+
+  .status-command {
+    clip-path: inset(0 100% 0 0);
+    animation: typeStatus 23s steps(19, end) infinite;
+  }
+
+  @keyframes typeStatus {
+    0%, 32% {
+      clip-path: inset(0 100% 0 0);
+    }
+
+    39% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    95% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    97%, 100% {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  .status1 { animation: status1 23s linear infinite; }
+  .status2 { animation: status2 23s linear infinite; }
+  .status3 { animation: status3 23s linear infinite; }
+  .status4 { animation: status4 23s linear infinite; }
+  .status5 { animation: status5 23s linear infinite; }
+  .status6 { animation: status6 23s linear infinite; }
+
+  @keyframes status1 {
+    0%,40% {opacity:0}
+    41%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  @keyframes status2 {
+    0%,42% {opacity:0}
+    43%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  @keyframes status3 {
+    0%,44% {opacity:0}
+    45%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  @keyframes status4 {
+    0%,46% {opacity:0}
+    47%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  @keyframes status5 {
+    0%,48% {opacity:0}
+    49%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  @keyframes status6 {
+    0%,50% {opacity:0}
+    51%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+
+  /* =========================
+     UPTIME
+     ========================= */
+
+  .uptime-prompt {
+    animation: uptimePrompt 23s linear infinite;
+  }
+
+  @keyframes uptimePrompt {
+    0%,55% {opacity:0}
+    56%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  .uptime-command {
+    clip-path: inset(0 100% 0 0);
+    animation: typeUptime 23s steps(6,end) infinite;
+  }
+
+  @keyframes typeUptime {
+    0%,56% {
+      clip-path: inset(0 100% 0 0);
+    }
+
+    60% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    95% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    97%,100% {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  .uptime-output {
+    animation: uptimeOutput 23s linear infinite;
+  }
+
+  @keyframes uptimeOutput {
+    0%,60% {opacity:0}
+    61%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+
+  /* =========================
+     GIT STATUS
+     ========================= */
+
+  .git-prompt {
+    animation: gitPrompt 23s linear infinite;
+  }
+
+  @keyframes gitPrompt {
+    0%,68% {opacity:0}
+    69%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  .git-command {
+    clip-path: inset(0 100% 0 0);
+    animation: typeGit 23s steps(10,end) infinite;
+  }
+
+  @keyframes typeGit {
+    0%,69% {
+      clip-path: inset(0 100% 0 0);
+    }
+
+    74% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    95% {
+      clip-path: inset(0 0 0 0);
+    }
+
+    97%,100% {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  .git-output {
+    animation: gitOutput 23s linear infinite;
+  }
+
+  @keyframes gitOutput {
+    0%,74% {opacity:0}
+    75%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+
+  .final-prompt {
+    animation: finalPrompt 23s linear infinite;
+  }
+
+  @keyframes finalPrompt {
+    0%,84% {opacity:0}
+    85%,95% {opacity:1}
+    97%,100% {opacity:0}
+  }
+</style>
+
+
+<!-- SHADOW -->
+
+<rect
+  x="15"
+  y="15"
+  width="870"
+  height="620"
+  rx="14"
+  fill="#000"
+  opacity=".18"
+/>
+
+
+<!-- WINDOW -->
+
+<rect
+  x="10"
+  y="10"
+  width="870"
+  height="620"
+  rx="14"
+  fill="#1a1b26"
+  stroke="#414868"
+/>
+
+
+<!-- TITLE BAR -->
+
+<path
+  d="
+    M24 10
+    H866
+    A14 14 0 0 1 880 24
+    V54
+    H10
+    V24
+    A14 14 0 0 1 24 10Z
+  "
+  fill="#16161e"
+/>
+
+<line
+  x1="10"
+  y1="54"
+  x2="880"
+  y2="54"
+  stroke="#292e42"
+/>
+
+
+<!-- MAC BUTTONS -->
+
+<circle cx="34" cy="32" r="6" fill="#f7768e"/>
+<circle cx="54" cy="32" r="6" fill="#e0af68"/>
+<circle cx="74" cy="32" r="6" fill="#9ece6a"/>
+
+
+<!-- TITLE -->
+
+<text
+  x="445"
+  y="37"
+  text-anchor="middle"
+  class="title"
+>
+  chema@github — zsh
+</text>
+
+
+<!-- TERMINAL SESSION -->
+
+<g class="terminal session">
+
+
+<!-- WHOAMI -->
+
+<g class="whoami-prompt">
+
+  <text x="35" y="90">
+    <tspan class="prompt">➜  </tspan>
+    <tspan class="path">~ </tspan>
   </text>
 
-  <g class="terminal">
+  <text
+    x="76"
+    y="90"
+    class="cmd whoami-command"
+  >
+    whoami
+  </text>
 
-    <!-- WHOAMI -->
-
-    <g class="line l1">
-      <text x="35" y="90">
-        <tspan class="prompt">➜  </tspan>
-        <tspan class="path">~ </tspan>
-        <tspan class="cmd">whoami</tspan>
-      </text>
-    </g>
-
-    <g class="line l2">
-      <text x="35" y="120" class="text">
-        Software Engineer.
-      </text>
-    </g>
-
-    <g class="line l3">
-      <text x="35" y="146" class="text">
-        I build things for the web, automate whatever I can,
-      </text>
-    </g>
-
-    <g class="line l4">
-      <text x="35" y="172" class="text">
-        and spend an unreasonable amount of time tweaking my setup.
-      </text>
-    </g>
-
-    <g class="line l5">
-      <text x="35" y="198">
-        <tspan class="muted">Most of my work lives behind </tspan>
-        <tspan class="yellow">🔒 private repositories.</tspan>
-      </text>
-    </g>
+</g>
 
 
-    <!-- INTERESTS -->
+<g class="whoami-output">
 
-    <g class="line l6">
-      <text x="35" y="242">
-        <tspan class="prompt">➜  </tspan>
-        <tspan class="path">~ </tspan>
-        <tspan class="cmd">cat /etc/interests</tspan>
-      </text>
-    </g>
+  <text x="35" y="120" class="text">
+    Software Engineer.
+  </text>
 
-    <g class="line l7">
-      <text x="35" y="272" class="text">
-        software engineering
-      </text>
-    </g>
+  <text x="35" y="146" class="text">
+    I build things for the web, automate whatever I can,
+  </text>
 
-    <g class="line l8">
-      <text x="250" y="272" class="text">
-        web development
-      </text>
-    </g>
+  <text x="35" y="172" class="text">
+    and spend an unreasonable amount of time tweaking my setup.
+  </text>
 
-    <g class="line l9">
-      <text x="440" y="272" class="text">
-        system design
-      </text>
-    </g>
+  <text x="35" y="198">
+    <tspan class="muted">
+      Most of my work lives behind
+    </tspan>
 
-    <g class="line l10">
-      <text x="35" y="298" class="text">
-        AI-assisted development
-      </text>
-    </g>
+    <tspan class="yellow">
+      🔒 private repositories.
+    </tspan>
+  </text>
 
-    <g class="line l11">
-      <text x="300" y="298" class="text">
-        automation
-      </text>
-    </g>
-
-    <g class="line l12">
-      <text x="440" y="298" class="text">
-        unnecessary terminal customization
-      </text>
-    </g>
+</g>
 
 
-    <!-- STATUS -->
+<!-- INTERESTS -->
 
-    <g class="line l13">
-      <text x="35" y="342">
-        <tspan class="prompt">➜  </tspan>
-        <tspan class="path">~ </tspan>
-        <tspan class="cmd">./current_status.sh</tspan>
-      </text>
-    </g>
+<g class="interests-prompt">
 
-    <g class="line l14">
-      <text x="35" y="372">
-        <tspan class="green">✓</tspan>
-        <tspan class="text"> writing code</tspan>
-      </text>
-    </g>
+  <text x="35" y="240">
+    <tspan class="prompt">➜  </tspan>
+    <tspan class="path">~ </tspan>
+  </text>
 
-    <g class="line l15">
-      <text x="35" y="398">
-        <tspan class="green">✓</tspan>
-        <tspan class="text"> making AI write code</tspan>
-      </text>
-    </g>
+  <text
+    x="76"
+    y="240"
+    class="cmd interests-command"
+  >
+    cat /etc/interests
+  </text>
 
-    <g class="line l16">
-      <text x="35" y="424">
-        <tspan class="green">✓</tspan>
-        <tspan class="text"> reviewing what the AI wrote</tspan>
-      </text>
-    </g>
-
-    <g class="line l17">
-      <text x="35" y="450">
-        <tspan class="green">✓</tspan>
-        <tspan class="text"> arguing with the AI about what it wrote</tspan>
-      </text>
-    </g>
-
-    <g class="line l18">
-      <text x="35" y="476">
-        <tspan class="green">✓</tspan>
-        <tspan class="text"> rewriting the prompt</tspan>
-      </text>
-    </g>
-
-    <g class="line l19">
-      <text x="35" y="502">
-        <tspan class="green">✓</tspan>
-        <tspan class="text"> somehow shipping it</tspan>
-      </text>
-    </g>
+</g>
 
 
-    <!-- UPTIME -->
+<g class="interests-output">
 
-    <g class="line l20">
-      <text x="520" y="372">
-        <tspan class="prompt">➜  </tspan>
-        <tspan class="path">~ </tspan>
-        <tspan class="cmd">uptime</tspan>
-      </text>
-    </g>
+  <text x="35" y="270" class="text">
+    software engineering
+  </text>
 
-    <g class="line l21">
-      <text x="520" y="402" class="text">
-        Still learning.
-      </text>
-    </g>
+  <text x="250" y="270" class="text">
+    web development
+  </text>
 
-    <g class="line l22">
-      <text x="520" y="428" class="text">
-        Still building.
-      </text>
-    </g>
+  <text x="440" y="270" class="text">
+    system design
+  </text>
 
-    <g class="line l23">
-      <text x="520" y="454" class="text">
-        Still breaking things.
-      </text>
-    </g>
+  <text x="35" y="296" class="text">
+    AI-assisted development
+  </text>
+
+  <text x="300" y="296" class="text">
+    automation
+  </text>
+
+  <text x="440" y="296" class="text">
+    unnecessary terminal customization
+  </text>
+
+</g>
 
 
-    <!-- FINAL PROMPT -->
+<!-- STATUS -->
 
-    <g class="line l24">
-      <text x="35" y="550">
-        <tspan class="prompt">➜  </tspan>
-        <tspan class="path">~ </tspan>
-      </text>
+<g class="status-prompt">
 
-      <rect
-        class="cursor"
-        x="75"
-        y="536"
-        width="9"
-        height="18"
-        rx="1"
-      />
-    </g>
+  <text x="35" y="338">
+    <tspan class="prompt">➜  </tspan>
+    <tspan class="path">~ </tspan>
+  </text>
 
-  </g>
+  <text
+    x="76"
+    y="338"
+    class="cmd status-command"
+  >
+    ./current_status.sh
+  </text>
+
+</g>
+
+
+<g class="status1">
+  <text x="35" y="368">
+    <tspan class="green">✓</tspan>
+    <tspan class="text"> writing code</tspan>
+  </text>
+</g>
+
+<g class="status2">
+  <text x="35" y="394">
+    <tspan class="green">✓</tspan>
+    <tspan class="text"> making AI write code</tspan>
+  </text>
+</g>
+
+<g class="status3">
+  <text x="35" y="420">
+    <tspan class="green">✓</tspan>
+    <tspan class="text"> reviewing what the AI wrote</tspan>
+  </text>
+</g>
+
+<g class="status4">
+  <text x="35" y="446">
+    <tspan class="green">✓</tspan>
+    <tspan class="text"> arguing with the AI about what it wrote</tspan>
+  </text>
+</g>
+
+<g class="status5">
+  <text x="35" y="472">
+    <tspan class="green">✓</tspan>
+    <tspan class="text"> rewriting the prompt</tspan>
+  </text>
+</g>
+
+<g class="status6">
+  <text x="35" y="498">
+    <tspan class="green">✓</tspan>
+    <tspan class="text"> somehow shipping it</tspan>
+  </text>
+</g>
+
+
+<!-- UPTIME -->
+
+<g class="uptime-prompt">
+
+  <text x="510" y="368">
+    <tspan class="prompt">➜  </tspan>
+    <tspan class="path">~ </tspan>
+  </text>
+
+  <text
+    x="551"
+    y="368"
+    class="cmd uptime-command"
+  >
+    uptime
+  </text>
+
+</g>
+
+
+<g class="uptime-output">
+
+  <text x="510" y="398" class="text">
+    Still learning.
+  </text>
+
+  <text x="510" y="424" class="text">
+    Still building.
+  </text>
+
+  <text x="510" y="450" class="text">
+    Still breaking things.
+  </text>
+
+</g>
+
+
+<!-- GIT STATUS -->
+
+<g class="git-prompt">
+
+  <text x="510" y="492">
+    <tspan class="prompt">➜  </tspan>
+    <tspan class="path">~ </tspan>
+  </text>
+
+  <text
+    x="551"
+    y="492"
+    class="cmd git-command"
+  >
+    git status
+  </text>
+
+</g>
+
+
+<g class="git-output">
+
+  <text x="510" y="522">
+    <tspan class="text">On branch </tspan>
+    <tspan class="green">life</tspan>
+  </text>
+
+  <text x="510" y="548" class="text">
+    Your branch is ahead by 27 years.
+  </text>
+
+  <text x="510" y="574">
+    <tspan class="muted">nothing to commit, </tspan>
+    <tspan class="yellow">still working on it.</tspan>
+  </text>
+
+</g>
+
+
+<!-- FINAL PROMPT -->
+
+<g class="final-prompt">
+
+  <text x="35" y="602">
+    <tspan class="prompt">➜  </tspan>
+    <tspan class="path">~ </tspan>
+  </text>
+
+  <rect
+    class="cursor"
+    x="76"
+    y="588"
+    width="9"
+    height="18"
+    rx="1"
+  />
+
+</g>
+
+</g>
 </svg>
