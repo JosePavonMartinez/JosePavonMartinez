@@ -149,14 +149,14 @@
         text-anchor="middle"
         class="mono name glitch-a"
         fill="#2ac3de">
-    CHEMA.EXE
+    JosePavonMartinez.EXE
   </text>
 
   <text x="450" y="120"
         text-anchor="middle"
         class="mono name glitch-b"
         fill="#ff79c6">
-    CHEMA.EXE
+    JosePavonMartinez.EXE
   </text>
 
   <!-- main -->
@@ -165,7 +165,7 @@
         class="mono name"
         fill="url(#neon)"
         filter="url(#glow)">
-    CHEMA.EXE
+    JosePavonMartinez.EXE
   </text>
 
   <text x="450" y="155"
