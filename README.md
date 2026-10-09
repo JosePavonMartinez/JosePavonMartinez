@@ -1,24 +1,19 @@
-<p align="center">
-  <img src="./assets/header.svg" width="900">
-</p>
+<div align="center">
 
-<p align="center">
-  <img src="./assets/terminal.svg" width="900">
-</p>
+<img src="./assets/header.svg" width="900" alt="CHEMA.EXE"/>
 
-<p align="center">
-  <img src="./assets/pokemon.gif">
-</p>
+<br/>
 
-<p align="center">
-  <img src="./assets/player-card.svg" width="440">
-  <img src="./assets/quest-card.svg" width="440">
-</p>
+<img src="./assets/terminal.svg" width="900" alt="Terminal"/>
 
-<p align="center">
-  <img src="./assets/tech-bar.svg" width="900">
-</p>
+<br/>
 
-<p align="center">
-  <img src="./assets/footer.svg" width="900">
-</p>
+<!-- Aquí meteremos el Pokémon -->
+
+<img src="./assets/hud.svg" width="900" alt="Player HUD"/>
+
+<br/>
+
+<img src="./assets/footer.svg" width="900" alt="Insert coin"/>
+
+</div>
