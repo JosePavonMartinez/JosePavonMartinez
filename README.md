@@ -1,16 +1,41 @@
-## Hi there 👋
+```text
+Software Engineer.
 
-<!--
-**JosePavonMartinez/JosePavonMartinez** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+I build things for the web,
+automate whatever I can,
+and spend an unreasonable amount of time tweaking my setup.
 
-Here are some ideas to get you started:
+Most of my work lives behind 🔒 private repositories.
+```
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+```bash
+$ cat /etc/interests
+
+software engineering
+web development
+system design
+AI-assisted development
+automation
+making my Mac look cooler than necessary
+```
+
+```bash
+$ ./current_status.sh
+
+[✓] writing code
+[✓] making AI write code
+[✓] reviewing what the AI wrote
+[✓] arguing with the AI about what it wrote
+[✓] rewriting the prompt
+[✓] somehow shipping it
+```
+
+```bash
+$ uptime
+
+Still learning.
+Still building.
+Still breaking things.
+```
+
+`exit 0`
