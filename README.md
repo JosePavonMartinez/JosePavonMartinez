@@ -8,7 +8,9 @@
 
 <br/>
 
-<!-- Aquí meteremos el Pokémon -->
+<img src="./assets/pokemon-parade.gif?v=1" width="900" alt="Definitely intentional Pokemon chaos"/>
+
+<br/>
 
 <img src="./assets/hud.svg" width="900" alt="Player HUD"/>
 
