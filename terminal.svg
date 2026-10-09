@@ -1,0 +1,324 @@
+<svg
+  width="900"
+  height="610"
+  viewBox="0 0 900 610"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <style>
+    .terminal {
+      font-family: "SFMono-Regular", "SF Mono", "Cascadia Code",
+                   "Roboto Mono", "Liberation Mono", Menlo, monospace;
+      font-size: 16px;
+    }
+
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      fill: #a9b1d6;
+    }
+
+    .prompt { fill: #7aa2f7; }
+    .path   { fill: #bb9af7; }
+    .cmd    { fill: #c0caf5; }
+    .text   { fill: #a9b1d6; }
+    .green  { fill: #9ece6a; }
+    .yellow { fill: #e0af68; }
+    .muted  { fill: #565f89; }
+
+    .line {
+      opacity: 0;
+      animation: show 0.15s forwards;
+    }
+
+    .cursor {
+      fill: #c0caf5;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes show {
+      to { opacity: 1; }
+    }
+
+    @keyframes blink {
+      0%, 45%   { opacity: 1; }
+      46%, 100% { opacity: 0; }
+    }
+
+    .l1  { animation-delay: .4s; }
+    .l2  { animation-delay: 1.3s; }
+    .l3  { animation-delay: 1.6s; }
+    .l4  { animation-delay: 1.9s; }
+    .l5  { animation-delay: 2.2s; }
+
+    .l6  { animation-delay: 3.3s; }
+    .l7  { animation-delay: 3.7s; }
+    .l8  { animation-delay: 4.0s; }
+    .l9  { animation-delay: 4.3s; }
+    .l10 { animation-delay: 4.6s; }
+    .l11 { animation-delay: 4.9s; }
+    .l12 { animation-delay: 5.2s; }
+
+    .l13 { animation-delay: 6.3s; }
+    .l14 { animation-delay: 6.7s; }
+    .l15 { animation-delay: 7.0s; }
+    .l16 { animation-delay: 7.3s; }
+    .l17 { animation-delay: 7.6s; }
+    .l18 { animation-delay: 7.9s; }
+    .l19 { animation-delay: 8.2s; }
+
+    .l20 { animation-delay: 9.4s; }
+    .l21 { animation-delay: 9.8s; }
+    .l22 { animation-delay: 10.1s; }
+    .l23 { animation-delay: 10.4s; }
+
+    .l24 { animation-delay: 11.4s; }
+
+    .typing {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+  </style>
+
+  <!-- window shadow -->
+  <rect
+    x="15"
+    y="15"
+    width="870"
+    height="580"
+    rx="14"
+    fill="#000000"
+    opacity=".18"
+  />
+
+  <!-- terminal -->
+  <rect
+    x="10"
+    y="10"
+    width="870"
+    height="580"
+    rx="14"
+    fill="#1a1b26"
+    stroke="#414868"
+  />
+
+  <!-- title bar -->
+  <path
+    d="M24 10 H866
+       A14 14 0 0 1 880 24
+       V54
+       H10
+       V24
+       A14 14 0 0 1 24 10Z"
+    fill="#16161e"
+  />
+
+  <line
+    x1="10"
+    y1="54"
+    x2="880"
+    y2="54"
+    stroke="#292e42"
+  />
+
+  <!-- macOS buttons -->
+  <circle cx="34" cy="32" r="6" fill="#f7768e"/>
+  <circle cx="54" cy="32" r="6" fill="#e0af68"/>
+  <circle cx="74" cy="32" r="6" fill="#9ece6a"/>
+
+  <text
+    x="445"
+    y="37"
+    text-anchor="middle"
+    class="title"
+  >
+    chema@github — zsh
+  </text>
+
+  <g class="terminal">
+
+    <!-- WHOAMI -->
+
+    <g class="line l1">
+      <text x="35" y="90">
+        <tspan class="prompt">➜  </tspan>
+        <tspan class="path">~ </tspan>
+        <tspan class="cmd">whoami</tspan>
+      </text>
+    </g>
+
+    <g class="line l2">
+      <text x="35" y="120" class="text">
+        Software Engineer.
+      </text>
+    </g>
+
+    <g class="line l3">
+      <text x="35" y="146" class="text">
+        I build things for the web, automate whatever I can,
+      </text>
+    </g>
+
+    <g class="line l4">
+      <text x="35" y="172" class="text">
+        and spend an unreasonable amount of time tweaking my setup.
+      </text>
+    </g>
+
+    <g class="line l5">
+      <text x="35" y="198">
+        <tspan class="muted">Most of my work lives behind </tspan>
+        <tspan class="yellow">🔒 private repositories.</tspan>
+      </text>
+    </g>
+
+
+    <!-- INTERESTS -->
+
+    <g class="line l6">
+      <text x="35" y="242">
+        <tspan class="prompt">➜  </tspan>
+        <tspan class="path">~ </tspan>
+        <tspan class="cmd">cat /etc/interests</tspan>
+      </text>
+    </g>
+
+    <g class="line l7">
+      <text x="35" y="272" class="text">
+        software engineering
+      </text>
+    </g>
+
+    <g class="line l8">
+      <text x="250" y="272" class="text">
+        web development
+      </text>
+    </g>
+
+    <g class="line l9">
+      <text x="440" y="272" class="text">
+        system design
+      </text>
+    </g>
+
+    <g class="line l10">
+      <text x="35" y="298" class="text">
+        AI-assisted development
+      </text>
+    </g>
+
+    <g class="line l11">
+      <text x="300" y="298" class="text">
+        automation
+      </text>
+    </g>
+
+    <g class="line l12">
+      <text x="440" y="298" class="text">
+        unnecessary terminal customization
+      </text>
+    </g>
+
+
+    <!-- STATUS -->
+
+    <g class="line l13">
+      <text x="35" y="342">
+        <tspan class="prompt">➜  </tspan>
+        <tspan class="path">~ </tspan>
+        <tspan class="cmd">./current_status.sh</tspan>
+      </text>
+    </g>
+
+    <g class="line l14">
+      <text x="35" y="372">
+        <tspan class="green">✓</tspan>
+        <tspan class="text"> writing code</tspan>
+      </text>
+    </g>
+
+    <g class="line l15">
+      <text x="35" y="398">
+        <tspan class="green">✓</tspan>
+        <tspan class="text"> making AI write code</tspan>
+      </text>
+    </g>
+
+    <g class="line l16">
+      <text x="35" y="424">
+        <tspan class="green">✓</tspan>
+        <tspan class="text"> reviewing what the AI wrote</tspan>
+      </text>
+    </g>
+
+    <g class="line l17">
+      <text x="35" y="450">
+        <tspan class="green">✓</tspan>
+        <tspan class="text"> arguing with the AI about what it wrote</tspan>
+      </text>
+    </g>
+
+    <g class="line l18">
+      <text x="35" y="476">
+        <tspan class="green">✓</tspan>
+        <tspan class="text"> rewriting the prompt</tspan>
+      </text>
+    </g>
+
+    <g class="line l19">
+      <text x="35" y="502">
+        <tspan class="green">✓</tspan>
+        <tspan class="text"> somehow shipping it</tspan>
+      </text>
+    </g>
+
+
+    <!-- UPTIME -->
+
+    <g class="line l20">
+      <text x="520" y="372">
+        <tspan class="prompt">➜  </tspan>
+        <tspan class="path">~ </tspan>
+        <tspan class="cmd">uptime</tspan>
+      </text>
+    </g>
+
+    <g class="line l21">
+      <text x="520" y="402" class="text">
+        Still learning.
+      </text>
+    </g>
+
+    <g class="line l22">
+      <text x="520" y="428" class="text">
+        Still building.
+      </text>
+    </g>
+
+    <g class="line l23">
+      <text x="520" y="454" class="text">
+        Still breaking things.
+      </text>
+    </g>
+
+
+    <!-- FINAL PROMPT -->
+
+    <g class="line l24">
+      <text x="35" y="550">
+        <tspan class="prompt">➜  </tspan>
+        <tspan class="path">~ </tspan>
+      </text>
+
+      <rect
+        class="cursor"
+        x="75"
+        y="536"
+        width="9"
+        height="18"
+        rx="1"
+      />
+    </g>
+
+  </g>
+</svg>
